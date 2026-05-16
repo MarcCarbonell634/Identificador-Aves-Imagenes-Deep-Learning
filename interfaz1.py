@@ -1,12 +1,12 @@
 # =========================
 # 📦 IMPORTS
 # =========================
-import os
 import streamlit as st
 import tensorflow as tf
+from tensorflow.keras.models import load_model
 from PIL import Image
 import numpy as np
-import gdown
+import os
 
 # =========================
 # 🏷️ TÍTULO
@@ -14,29 +14,25 @@ import gdown
 st.title("Sistema de Identificador de Especies de Aves")
 
 # =========================
-# ☁️ DESCARGA MODELO DESDE GOOGLE DRIVE
-# =========================
-MODEL_PATH = "modelo_prueba_1.keras"
-
-FILE_ID = "1mNs4yc3oF-z1LVPIe_OJ1HzHIZtCXh8m"
-
-if not os.path.exists(MODEL_PATH):
-    st.info("📥 Descargando modelo desde Google Drive...")
-
-    url = f"https://drive.google.com/uc?export=download&id={FILE_ID}"
-    gdown.download(url, MODEL_PATH, quiet=False)
-
-# =========================
-# 🧠 CARGAR MODELO (CACHEADO)
+# 🧠 CARGAR MODELO (CACHÉ PARA EVITAR ERRORES)
 # =========================
 @st.cache_resource
 def load_my_model():
-    return tf.keras.models.load_model(MODEL_PATH)
+    model_path = "modelo_prueba_ultra_rapido.keras"
+    
+    if not os.path.exists(model_path):
+        st.error(f"❌ No se encuentra el modelo en: {model_path}")
+        return None
+    
+    return tf.keras.models.load_model(model_path)
 
 model = load_my_model()
 
+if model is None:
+    st.stop()
+
 # =========================
-# 📂 CLASES (200 ESPECIES)
+# 🏷️ CLASES (200 ESPECIES)
 # =========================
 class_names = [
     "Black_Footed_Albatross",
@@ -242,7 +238,7 @@ class_names = [
 ]
 
 # =========================
-# 📤 SUBIR IMAGEN
+# 📂 UPLOAD
 # =========================
 uploaded_file = st.file_uploader("Sube una imagen de un ave", type=["jpg", "jpeg", "png"])
 
@@ -254,7 +250,7 @@ if uploaded_file is not None:
     image = Image.open(uploaded_file).convert("RGB")
     st.image(image, caption="Imagen subida", use_container_width=True)
 
-    img = image.resize((128, 128))
+    img = image.resize((32, 32))  # IMPORTANTE: mismo tamaño del modelo
     img_array = np.array(img) / 255.0
     img_array = np.expand_dims(img_array, axis=0)
 
