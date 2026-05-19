@@ -1,4 +1,4 @@
-RED_PRUEBA.py y RED_PRUEBA_2.py -> Redes neuronales más potentes la primera con una 0.6 de accuracy y la segunda con un 0,8 (Sobre 1).   
+RED_PRUEBA.py y RED_PRUEBA_2.py -> Redes neuronales más potentes la primera con una 0.6 de accuracy (modelo 1) y la segunda con un 0,8 (Sobre 1) (modelo 4).   
 
 interfaz1.py -> Interfaz que hemos creado para hacer las pruebas del modelo.
 
