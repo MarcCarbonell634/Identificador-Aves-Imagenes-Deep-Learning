@@ -6,7 +6,7 @@ interfaz2.py -> Interfaz que hemos creado de forma definitiva para implementar e
 
 modelo_aves_pro.keras -> Modelo implementado con la interfaz 2
 
-modelo_prueba_1.keras -> Modelo implementado con la interfaz 1
+modelo_prueba_1.keras -> Modelo que no pudimos usar debido a la restricción de tamaño del GitHub
 
 modelo_prueba_ultra_rapido.keras -> Modelo con la interfaz 2, fue el primero de los modelos que funcionó.
 
